@@ -1,8 +1,10 @@
 import React, { } from "react";
 import { Link, NavLink } from "react-router";
+import avatar from '../../assets/avt-png3.png'
 
-const Navbar = ({ theme, setTheme }) => {
-
+const Navbar = ({ theme, setTheme, user}) => {
+    // user = true;
+    // loading = false
     //-----------------Navbar Style----------------------------------
     const navbarClasses =
         theme === "dark"
@@ -12,13 +14,13 @@ const Navbar = ({ theme, setTheme }) => {
     //------------------------Buttons---------------------------------
     const loginButtonClasses =
         theme === "dark"
-            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-white rounded-3xl transition-all hover:bg-white hover:text-[#1563DF] text-white"
+            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-white rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-white hover:border-none"
             : "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-gray-900";
 
     const registerButtonClasses =
         theme === "dark"
-            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-white rounded-3xl transition-all hover:bg-white hover:text-[#1563DF] text-[#1563DF] bg-white"
-            : "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-white bg-[#1563DF]";
+            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-transparent hover:border-white hover:text-white text-white bg-[#1563DF]"
+            : "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-transparent  hover:text-black  text-white bg-[#1563DF]";
 
     //----------------------------NavLinks-----------------------------
     const links = (
@@ -118,45 +120,77 @@ const Navbar = ({ theme, setTheme }) => {
                         </div>
                     </label>
 
-                    <Link to={'/login'} className={`${loginButtonClasses}`}>
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            stroke="currentColor"
-                        >
-                            <path
-                                d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                        Login
-                    </Link>
+                    {
+                        user ?
+                            (
+                                <div className="dropdown dropdown-end">
+                                    <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img src={user.photoURL || avatar} alt="User Avatar" />
+                                        </div>
+                                    </label>
+                                    <ul
+                                        tabIndex={0}
+                                        className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-32"
+                                    >
+                                        <Link to={'/profile'}>
+                                            <li className="font-bold text-center cursor-pointer">{user.displayName}</li>
+                                        </Link>
+                                        <li className="text-center">
+                                            <button
+                                                className="w-full px-2 py-1 font-bold flex justify-center items-center text-center"
+                                            >
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )
+                            :
+                            <>
+                                <Link to={'/login'} className={`${loginButtonClasses}`}>
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    Login
+                                </Link>
 
-                    <Link to={'/register'} className={`${registerButtonClasses} hidden md:flex`}>
-                        <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            stroke="currentColor"
-                        >
-                            <path
-                                d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
-                        Register
-                    </Link>
+                                <Link to={'/register'} className={`${registerButtonClasses} hidden md:flex`}>
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
+                                            stroke="currentColor"
+                                            strokeWidth="1.5"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                    Register
+                                </Link>
+                            </>
+                    }
+
+
                 </div>
             </div>
         </header>

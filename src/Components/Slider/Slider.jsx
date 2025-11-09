@@ -7,6 +7,11 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/thumbs";
 import "swiper/css/effect-fade";
+import { FaHouseChimneyWindow } from "react-icons/fa6";
+import { MdVilla } from "react-icons/md";
+import { HiOfficeBuilding } from "react-icons/hi";
+import { PiBuildingApartmentFill } from "react-icons/pi";
+import { GoArrowUpRight } from "react-icons/go";
 
 const Slider = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -28,7 +33,7 @@ const Slider = () => {
     const words = ["Sanctuary", "Safe House"];
 
     return (
-        <section className="relative w-full lg:rounded-xl lg:max-w-11/12 xl:max-w-10/12 mx-auto h-[85vh] overflow-hidden mt-3">
+        <section className="relative w-full lg:rounded-xl lg:max-w-11/12 xl:max-w-10/12 mx-auto h-[85vh] overflow-hidden md:mt-3">
             {/* Navigation Arrows */}
             <div className="absolute z-30 top-1/2 left-1 -translate-y-1/2 cursor-pointer custom-prev text-white text-5xl">
                 ‹
@@ -85,21 +90,33 @@ const Slider = () => {
                             />
                         </span>
                     </h1>
-                    <p className="text-sm sm:text-base md:text-lg xl:text-xl">
-                        Discover your private oasis at Homelengo, where every corner, from the
+                    <p className="text-sm text-[#EFEFEF] sm:text-base md:text-lg xl:text-xl">
+                        Discover your private oasis at PlaCio, where every corner, from the
                         spacious garden to the relaxing pool, is crafted for your comfort and
                         enjoyment.
                     </p>
                     <div className="flex flex-wrap justify-center xl:justify-start gap-3">
-                        {["Houses", "Villa", "Office", "Apartments"].map((item, i) => (
-                            <a
-                                key={i}
-                                href="#"
-                                className="text-white px-4 py-2 rounded-2xl transition bg-black/40 backdrop-blur-sm hover:bg-black/60"
-                            >
-                                {item}
-                            </a>
-                        ))}
+                        <div className="flex items-center justify-center gap-1 text-white px-4 py-2 rounded-2xl transition bg-black/40 backdrop-blur-sm hover:bg-black/60 cursor-pointer">
+                            <FaHouseChimneyWindow></FaHouseChimneyWindow>
+                            <span>Houses</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-white px-4 py-2 rounded-2xl transition bg-black/40 backdrop-blur-sm hover:bg-black/60 cursor-pointer">
+                            <MdVilla></MdVilla>
+                            <span>Villa</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-white px-4 py-2 rounded-2xl transition bg-black/40 backdrop-blur-sm hover:bg-black/60 cursor-pointer">
+                            <HiOfficeBuilding></HiOfficeBuilding>
+                            <span>Office</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-1 text-white px-4 py-2 rounded-2xl transition bg-black/40 backdrop-blur-sm hover:bg-black/60 cursor-pointer">
+                            <PiBuildingApartmentFill></PiBuildingApartmentFill>
+                            <span>Apartment</span>
+                        </div>
+
+                        
+                    </div>
+                    <div className="mt-4 flex justify-center xl:justify-start">
+                        <button className={`flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-white bg-[#1563DF] cursor-pointer`}> Explore More <GoArrowUpRight className="text-xl"></GoArrowUpRight></button>
                     </div>
                 </div>
 
