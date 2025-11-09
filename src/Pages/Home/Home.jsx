@@ -1,9 +1,12 @@
 import React from 'react';
+import Slider from '../../Components/Slider/Slider';
+import Temp from '../../Components/Temp/Temp';
 
 const Home = () => {
     return (
         <div>
-            <p> This is Home </p>
+            <Slider></Slider>
+            {/* <Temp></Temp> */}
         </div>
     );
 };

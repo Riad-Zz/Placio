@@ -1,43 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React, { } from "react";
+import { Link, NavLink } from "react-router";
 
-const Navbar = () => {
-    const [scrolled, setScrolled] = useState(false);
-    const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+const Navbar = ({ theme, setTheme }) => {
 
-    // Scroll effect
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    //-----------------Navbar Style----------------------------------
+    const navbarClasses =
+        theme === "dark"
+            ? "bg-[#1E1E1E] text-white"
+            : "bg-white text-gray-900";
 
-    // Apply theme to HTML
-    useEffect(() => {
-        const html = document.querySelector("html");
-        html.setAttribute("data-theme", theme);
-        localStorage.setItem("theme", theme);
-    }, [theme]);
+    //------------------------Buttons---------------------------------
+    const loginButtonClasses =
+        theme === "dark"
+            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-white rounded-3xl transition-all hover:bg-white hover:text-[#1563DF] text-white"
+            : "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-gray-900";
 
-    const handleTheme = (checked) => {
-        setTheme(checked ? "dark" : "light");
-    };
+    const registerButtonClasses =
+        theme === "dark"
+            ? "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-white rounded-3xl transition-all hover:bg-white hover:text-[#1563DF] text-[#1563DF] bg-white"
+            : "flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-white bg-[#1563DF]";
+
+    //----------------------------NavLinks-----------------------------
+    const links = (
+        <>
+            <NavLink to={"/"} className="">
+                Home
+            </NavLink>
+            <NavLink to={"/allproperty"} className="">
+                All Properties
+            </NavLink>
+            <NavLink to={"/addproperty"} className="">
+                Add Properties
+            </NavLink>
+            <NavLink to={"/myproperty"} className="">
+                My Properties
+            </NavLink>
+            <NavLink to={"/myrating"} className="">
+                My Ratings
+            </NavLink>
+        </>
+    );
 
     return (
-        <header
-            className={`fixed w-full top-0 z-50 transition-all duration-500 ${scrolled
-                ? "shadow-lg backdrop-blur-md bg-white/80 dark:bg-gray-800/80"
-                : "bg-transparent"
-                }`}
-        >
-            <div className="xl:max-w-10/12 mx-auto px-1 md:px-6 py-4 flex justify-between items-center">
+        <header className={`w-full transition-all duration-500 ${navbarClasses}`}>
+            <div className="xl:max-w-10/12 lg:max-w-11/12 mx-auto px-1  py-4 flex justify-between items-center">
                 {/* Left: Hamburger + Logo */}
                 <div className="flex items-center gap-3">
                     {/* Hamburger menu */}
-                    <div className="lg:hidden dropdown">
+                    <div className="xl:hidden dropdown">
                         <label tabIndex={0} className="btn btn-ghost btn-square p-2 py-0">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="h-6 w-6 text-white dark:text-gray-200"
+                                className={`h-6 w-6 ${theme === "dark" ? "text-white" : "text-gray-900"}`}
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -49,94 +63,100 @@ const Navbar = () => {
                                     d="M4 6h16M4 12h16M4 18h16"
                                 />
                             </svg>
+
                         </label>
                         <ul
                             tabIndex={0}
-                            className="menu menu-compact dropdown-content mt-3 p-4 shadow bg-base-100 rounded-box w-56 space-y-2"
+                            className="menu menu-compact dropdown-content mt-3 p-4 shadow bg-base-100 rounded-box w-56 space-y-2 hamburger"
                         >
-                            <a href="#home" className="py-2 px-3 rounded hover:bg-primary hover:text-white">
+                            <NavLink to={"/"} className="py-2 px-3 rounded hover:bg-primary hover:text-white">
                                 Home
-                            </a>
-                            <a
-                                href="#all-properties"
-                                className="py-2 px-3 rounded hover:bg-primary hover:text-white"
-                            >
+                            </NavLink>
+                            <NavLink to={"/allproperty"} className="py-2 px-3 rounded hover:bg-primary hover:text-white">
                                 All Properties
-                            </a>
-                            <a
-                                href="#add-properties"
-                                className="py-2 px-3 rounded hover:bg-primary hover:text-white"
-                            >
+                            </NavLink>
+                            <NavLink to={"/addproperty"} className="py-2 px-3 rounded hover:bg-primary hover:text-white">
                                 Add Properties
-                            </a>
-                            <a
-                                href="#my-properties"
-                                className="py-2 px-3 rounded hover:bg-primary hover:text-white"
-                            >
+                            </NavLink>
+                            <NavLink to={"/myproperty"} className="py-2 px-3 rounded hover:bg-primary hover:text-white">
                                 My Properties
-                            </a>
-                            <a
-                                href="#my-ratings"
-                                className="py-2 px-3 rounded hover:bg-primary hover:text-white"
-                            >
+                            </NavLink>
+                            <NavLink to={"/myrating"} className="py-2 px-3 rounded hover:bg-primary hover:text-white">
                                 My Ratings
-                            </a>
+                            </NavLink>
                         </ul>
                     </div>
 
                     {/* Logo */}
-                    <a href="/" className="flex items-center">
-                        <img
-                            src="./logo-white.png"
-                            alt="Logo"
-                            className="h-12 w-auto transition-all duration-500"
-                        />
+                    <a href="/" className="flex items-center gap-2">
+                        <img src="./logo2.png" alt="Logo" className="h-12 w-auto transition-all duration-500" />
+                        <span className={`text-3xl font-bold hidden sm:inline-block ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                            PlaCio
+                        </span>
                     </a>
-
                 </div>
 
-                {/* Middle: Nav links for large screens */}
-                <nav
-                    className={`hidden lg:flex gap-8 font-medium transition-colors duration-500 ${scrolled ? "text-gray-800 dark:text-white" : "text-white"
-                        }`}
-                >
-                    <a href="#home" className="hover:text-primary transition-colors">
-                        Home
-                    </a>
-                    <a href="#all-properties" className="hover:text-primary transition-colors">
-                        All Properties
-                    </a>
-                    <a href="#add-properties" className="hover:text-primary transition-colors">
-                        Add Properties
-                    </a>
-                    <a href="#my-properties" className="hover:text-primary transition-colors">
-                        My Properties
-                    </a>
-                    <a href="#my-ratings" className="hover:text-primary transition-colors">
-                        My Ratings
-                    </a>
+                {/*-------------------- Middle: Nav links for large screens----------------------------- */}
+                <nav className={`hidden xl:flex gap-8 font-semibold text-lg transition-colors midnav duration-500 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                    {links}
                 </nav>
 
-                {/* Right: Theme toggle + Sign In */}
+                {/*------------------------ Right: Theme toggle + Login/Registe-------------------------------r */}
                 <div className="flex items-center gap-3">
-                    {/* Theme toggle */}
-                    <input
-                        type="checkbox"
-                        className="toggle toggle-sm"
-                        defaultChecked={theme === "dark"}
-                        onChange={(e) => handleTheme(e.target.checked)}
-                    />
+                    <label className="relative inline-flex items-center cursor-pointer select-none">
+                        <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={theme === "dark"}
+                            onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
+                        />
 
-                    {/* Sign In */}
-                    <a
-                        href="#login"
-                        className={`px-4 py-2 border rounded transition-colors ${scrolled
-                            ? "text-gray-800 border-gray-800 dark:text-white dark:border-white"
-                            : "text-white border-white"
-                            } hover:border-primary hover:text-primary`}
-                    >
-                        Sign In
-                    </a>
+                        <div className="w-14 h-8 rounded-full bg-gray-300 peer-checked:bg-[#1563DF] transition-all duration-300 shadow-inner"></div>
+                        <div className="absolute left-1 top-1 w-6 h-6 rounded-full bg-white transition-all duration-300 peer-checked:translate-x-6 flex items-center justify-center">
+                            <span className="text-yellow-400 text-lg peer-checked:hidden">☀️</span>
+                            <span className="text-gray-700 text-lg hidden peer-checked:inline">🌙</span>
+                        </div>
+                    </label>
+
+                    <Link to={'/login'} className={`${loginButtonClasses}`}>
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            stroke="currentColor"
+                        >
+                            <path
+                                d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Login
+                    </Link>
+
+                    <Link to={'/register'} className={`${registerButtonClasses} hidden md:flex`}>
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            stroke="currentColor"
+                        >
+                            <path
+                                d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                        Register
+                    </Link>
                 </div>
             </div>
         </header>
