@@ -3,6 +3,8 @@ import { Link, NavLink } from "react-router";
 import avatar from '../../assets/avt-png3.png'
 import styled from 'styled-components';
 import StyledWrapper from 'styled-components'
+import { GrUserNew } from "react-icons/gr";
+import { LuUserRoundPlus } from "react-icons/lu";
 
 const Navbar = ({ theme, setTheme, user }) => {
 
@@ -400,7 +402,7 @@ const Navbar = ({ theme, setTheme, user }) => {
                                 </Link>
 
                                 <Link to={'/register'} className={`${registerButtonClasses} hidden md:flex`}>
-                                    <svg
+                                    {/* <svg
                                         width="20"
                                         height="20"
                                         viewBox="0 0 20 20"
@@ -415,12 +417,13 @@ const Navbar = ({ theme, setTheme, user }) => {
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
                                         />
-                                    </svg>
+                                    </svg> */}
+                                    {/* <GrUserNew></GrUserNew> */}
+                                    <LuUserRoundPlus></LuUserRoundPlus>
                                     Register
                                 </Link>
                             </>
                     }
-
 
                 </div>
             </div>

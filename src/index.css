@@ -26,3 +26,8 @@
   text-decoration-thickness: 3px;
 }
 
+.playfair-display-font {
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight:400;
+}
