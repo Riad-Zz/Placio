@@ -7,7 +7,7 @@ import { GrUserNew } from "react-icons/gr";
 import { LuUserRoundPlus } from "react-icons/lu";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
-const Navbar = ({ theme, setTheme}) => {
+const Navbar = ({ theme, setTheme }) => {
 
     const StyledWrapper = styled.div`
   .theme-switch {
@@ -213,9 +213,17 @@ const Navbar = ({ theme, setTheme}) => {
     transform: translateY(-50%);
   }`;
 
-  const {user} = use(AuthContext) ;
+    const { user, logout } = use(AuthContext);
 
-
+    //---------------------Handle Logout----------------------------------
+    const handleLogout = () => {
+        logout().then(() => {
+        })
+            .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            })
+    }
     // user = true;
     // loading = false
     //-----------------Navbar Style----------------------------------
@@ -367,20 +375,35 @@ const Navbar = ({ theme, setTheme}) => {
                                     </label>
                                     <ul
                                         tabIndex={0}
-                                        className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-32"
+                                        className={`mt-3 p-2 shadow-lg menu menu-compact dropdown-content rounded-xl transition-all duration-300
+      ${theme === "dark" ? "bg-[#2A2A2A] text-white border border-gray-700" : "bg-white text-gray-900 border border-gray-200"} 
+      w-52 space-y-2`}
                                     >
-                                        <Link to={'/profile'}>
-                                            <li className="font-bold text-center cursor-pointer">{user.displayName}</li>
+                                        <Link to={''}>
+                                            <li className="font-semibold text-center truncate px-3 py-2 rounded-lg transition-all border-b border-gray-400/20">
+                                                {user.displayName || "User"}
+                                            </li>
                                         </Link>
-                                        <li className="text-center">
+
+                                        <li
+                                            className="text-sm text-center truncate px-3 py-2 text-gray-500 border-b border-gray-400/20"
+                                            title={user.email}
+                                        >
+                                            {user.email}
+                                        </li>
+
+                                        <li className="flex  mt-2">
                                             <button
-                                                className="w-full px-2 py-1 font-bold flex justify-center items-center text-center"
+                                                onClick={handleLogout}
+                                                className={`px-8 py-2 text-center flex justify-center rounded-lg font-semibold transition-colors
+          ${theme === "dark" ? "bg-primary hover:bg-primary/90 text-white" : "bg-primary text-white hover:bg-primary/90"}`}
                                             >
                                                 Logout
                                             </button>
                                         </li>
                                     </ul>
                                 </div>
+
                             )
                             :
                             <>

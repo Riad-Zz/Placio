@@ -5,6 +5,7 @@ import { FaEye } from "react-icons/fa";
 import { IoLogoGoogle } from "react-icons/io";
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
 import loginImage from '../../assets/loginImage.png'
+import useAxios from '../../Hooks/Axios/useAxios';
 
 
 
@@ -12,6 +13,7 @@ const Login = () => {
 
     const navigate = useNavigate() ;
     const location = useLocation() ;
+    const axiosInstance = useAxios() ;
     const { theme,user,setUser,GoogleLogin } = use(AuthContext)
     const [eye, setEye] = useState(false);
     const [forget, setforget] = useState(false);
@@ -34,7 +36,19 @@ const Login = () => {
         e.preventDefault() ;
         GoogleLogin().then((result)=>{
             const currentUser = result.user ;
-            setUser(currentUser)
+            setUser(currentUser) 
+            const newUser = {
+                name : currentUser.displayName  ,
+                email : currentUser.email ,
+                image : currentUser.photoURL,
+            }
+            //---------------------Post Using Axios--------------------------------
+            axiosInstance.post('/users',newUser)
+            .then(data => {
+               if( data.data.insertedId){
+                //Will DO Something
+               }
+            })
             navigate(location.state || '/') ;
         })
         .catch(error=>{
