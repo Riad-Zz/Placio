@@ -1,5 +1,5 @@
 import React, { use, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 import { IoLogoGoogle } from "react-icons/io";
@@ -10,11 +10,13 @@ import loginImage from '../../assets/loginImage.png'
 
 const Login = () => {
 
-
-    const { theme } = use(AuthContext)
+    const navigate = useNavigate() ;
+    const location = useLocation() ;
+    const { theme,user,setUser,GoogleLogin } = use(AuthContext)
     const [eye, setEye] = useState(false);
     const [forget, setforget] = useState(false);
     const [currentEmail, setCurrentEmail] = useState("");
+
 
     // ------------------- Onclick EyeControl ----------------
     const handleEyeClick = (e) => {
@@ -28,7 +30,18 @@ const Login = () => {
     }
 
 
-
+    const handleGoogleLogin = (e)=>{
+        e.preventDefault() ;
+        GoogleLogin().then((result)=>{
+            const currentUser = result.user ;
+            setUser(currentUser)
+            navigate(location.state || '/') ;
+        })
+        .catch(error=>{
+             const errorMessage = error.message;
+             console.log(errorMessage) ;
+        })
+    }
 
     return (
         <div className={`min-h-[90vh] ${theme === "dark" ? "" : "bg-gray-100"} flex flex-col md:flex-row items-center justify-center px-2 md:px-5 py-10`}>
@@ -37,8 +50,6 @@ const Login = () => {
 
             {
                 forget ?
-
-
                     <div className='w-full md:w-1/2 flex justify-center items-center'>
                         <form
                             onSubmit={async (e) => {
@@ -162,7 +173,7 @@ const Login = () => {
                             <p className='text-center font-semibold text-gray-500 dark:text-gray-400 mb-4'>OR</p>
 
                             {/* Google Login */}
-                            <button
+                            <button onClick={handleGoogleLogin}
                                 className={`btn w-full flex items-center justify-center gap-2 py-3 rounded-lg font-bold border transition 
         ${theme === "dark" ? "bg-gray-700 text-white border-gray-600 hover:bg-gray-600" : "bg-gray-100 text-black border-gray-200 hover:bg-gray-200"}`}
                             >

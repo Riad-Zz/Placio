@@ -1,12 +1,13 @@
-import React, { } from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import avatar from '../../assets/avt-png3.png'
 import styled from 'styled-components';
 import StyledWrapper from 'styled-components'
 import { GrUserNew } from "react-icons/gr";
 import { LuUserRoundPlus } from "react-icons/lu";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
-const Navbar = ({ theme, setTheme, user }) => {
+const Navbar = ({ theme, setTheme}) => {
 
     const StyledWrapper = styled.div`
   .theme-switch {
@@ -211,6 +212,8 @@ const Navbar = ({ theme, setTheme, user }) => {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
   }`;
+
+  const {user} = use(AuthContext) ;
 
 
     // user = true;
