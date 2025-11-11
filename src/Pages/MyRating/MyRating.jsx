@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { use, useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/Axios/useAxios";
@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router";
 import NoRating from "./NoRating";
 
 const MyRating = () => {
-    const { user, theme } = useContext(AuthContext);
+    const { user, theme } = use(AuthContext);
     const axiosInstance = useAxios();
 
     const { data: allratings = [], isLoading } = useQuery({
@@ -21,8 +21,11 @@ const MyRating = () => {
 
     return (
         <div className="max-w-11/12 md:max-w-10/12 mx-auto mt-10">
-            <p className="text-center text-[#1563DF] font-bold tracking-wider">My Ratings & Reviews</p>
-            <p className="text-center text-4xl font-semibold  my-2">Track the properties you’ve  Rated and your Feedback</p>
+            <p className="text-center text-3xl text-[#1563DF] font-bold tracking-wider">My Ratings & Reviews</p>
+            <p className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
+                Keep track of the properties you’ve rated and see all your feedback in one place.
+            </p>
+
             {
                 allratings.length == 0
                 && <NoRating></NoRating>

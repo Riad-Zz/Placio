@@ -8,6 +8,7 @@ import PropertyDetails from "../Components/PropertyDetails/PropertyDetails";
 import PrivateRoute from "../Provider/PrivateRoutes/PrivateRoute";
 import MyRating from "../Pages/MyRating/MyRating";
 import AddProperty from "../Pages/AddProperty/AddProperty";
+import MyProperty from "../Pages/My Property/MyProperty";
 
 export const router  = createBrowserRouter([
     {
@@ -20,7 +21,8 @@ export const router  = createBrowserRouter([
             {path : '/register' , Component : Register},
             {path : '/details/:id' , element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>},
             {path : '/myrating' , element : <PrivateRoute><MyRating></MyRating></PrivateRoute>},
-            {path : '/addproperty' , element : <PrivateRoute><AddProperty></AddProperty></PrivateRoute>}
+            {path : '/addproperty' , element : <PrivateRoute><AddProperty></AddProperty></PrivateRoute>},
+            {path : '/myproperty' , element : <PrivateRoute><MyProperty></MyProperty></PrivateRoute>},
         ]
     }
 ]) ;

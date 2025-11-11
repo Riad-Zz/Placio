@@ -1,11 +1,10 @@
 import React, { use } from 'react';
-
 import photo from '../../assets/noReview.png'
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Link } from 'react-router';
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
 
-const NoRating = () => {
+const NoProperty = () => {
     const {theme} = use(AuthContext)
     return (
         <div>
@@ -14,9 +13,9 @@ const NoRating = () => {
                     <img src={photo} alt="" className='h-120' />
                     <p className='text-3xl font-bold text-center'>No Properties Found !</p>
                     <p className={`text-lg ${theme === 'dark' ? "text-gray-400" : 'text-[#131313cc]'} font-semibold text-center mt-1`}>
-                        It looks like you haven’t have any reviews yet. Add some review to see them here!
+                        It looks like you haven’t added any properties yet. Add some properties to see them here!
                     </p>
-                    <Link to={'/allproperty'}><button className=' btn px-10 py-3 bg-[#1563DF] rounded-xl text-white hover:scale-105 transition-transform'><IoMdArrowRoundBack></IoMdArrowRoundBack> Go to All Property</button></Link>
+                    <Link to={'/addproperty'}><button className=' btn px-10 py-3 bg-[#1563DF] rounded-xl text-white hover:scale-105 transition-transform'><IoMdArrowRoundBack></IoMdArrowRoundBack> Go to Add Property</button></Link>
                 </div>
 
             </div>
@@ -24,4 +23,4 @@ const NoRating = () => {
     );
 };
 
-export default NoRating;
+export default NoProperty;

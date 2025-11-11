@@ -27,11 +27,14 @@ const AllProperty = () => {
         prop.propertyName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    // console.log(filteredProperties)
+    // console.log(allProp)
+
     return (
         <div className='max-w-11/12 md:max-w-10/12 mx-auto mt-5'>
             <p className='text-center text-4xl text-[#1563DF] font-bold tracking-widest'>ALL PROPERTY</p>
-            <p className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
-                Discover Placio's all Properties for Your Dream {' '}
+            <div className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
+                Discover Placio's all Properties for Your Dream{' '}
                 <span className="text-blue-400 inline-block">
                     <Typewriter
                         options={{
@@ -44,7 +47,8 @@ const AllProperty = () => {
                         }}
                     />
                 </span>
-            </p>
+            </div>
+
 
             {/* Search Bar */}
             <div className='flex justify-center mt-8'>
@@ -52,8 +56,8 @@ const AllProperty = () => {
                     type="text"
                     placeholder="Search property..."
                     className={`w-full md:w-1/2 py-3 px-4 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#1563DF] transition-all ${theme === 'dark'
-                            ? 'bg-[#2A2A2A] text-white border-gray-600 placeholder-gray-400'
-                            : 'bg-white text-gray-900 border-gray-300 placeholder-gray-500'
+                        ? 'bg-[#2A2A2A] text-white border-gray-600 placeholder-gray-400'
+                        : 'bg-white text-gray-900 border-gray-300 placeholder-gray-500'
                         }`}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
