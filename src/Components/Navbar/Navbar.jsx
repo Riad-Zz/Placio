@@ -2,14 +2,12 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import avatar from '../../assets/avt-png3.png'
 import styled from 'styled-components';
-import StyledWrapper from 'styled-components'
 import { GrUserNew } from "react-icons/gr";
 import { LuUserRoundPlus } from "react-icons/lu";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 
-const Navbar = ({ theme, setTheme }) => {
 
-    const StyledWrapper = styled.div`
+const StyledWrapper = styled.div`
   .theme-switch {
     --toggle-size: 10px;
     /* the size is adjusted using font-size,
@@ -213,6 +211,10 @@ const Navbar = ({ theme, setTheme }) => {
     transform: translateY(-50%);
   }`;
 
+const Navbar = ({ theme, setTheme }) => {
+
+
+
     const { user, logout } = use(AuthContext);
 
     //---------------------Handle Logout----------------------------------
@@ -311,12 +313,12 @@ const Navbar = ({ theme, setTheme }) => {
                     </div>
 
                     {/* Logo */}
-                    <a href="/" className="flex items-center gap-2">
-                        <img src="./logo2.png" alt="Logo" className="h-12 w-auto transition-all duration-500" />
+                    <Link to="/" className="flex items-center gap-2">
+                        <img src="/logo2.png" alt="Logo" className="h-12 w-auto transition-all duration-500" />
                         <span className={`text-3xl font-bold hidden sm:inline-block ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                             PlaCio
                         </span>
-                    </a>
+                    </Link>
                 </div>
 
                 {/*-------------------- Middle: Nav links for large screens----------------------------- */}
@@ -326,20 +328,7 @@ const Navbar = ({ theme, setTheme }) => {
 
                 {/*------------------------ Right: Theme toggle + Login/Registe-------------------------------r */}
                 <div className="flex items-center gap-3">
-                    {/* <label className="relative inline-flex items-center cursor-pointer select-none">
-                        <input
-                            type="checkbox"
-                            className="sr-only peer"
-                            checked={theme === "dark"}
-                            onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
-                        />
-
-                        <div className="w-14 h-8 rounded-full bg-gray-300 peer-checked:bg-[#1563DF] transition-all duration-300 shadow-inner"></div>
-                        <div className="absolute left-1 top-1 w-6 h-6 rounded-full bg-white transition-all duration-300 peer-checked:translate-x-6 flex items-center justify-center">
-                            <span className="text-yellow-400 text-lg peer-checked:hidden">☀️</span>
-                            <span className="text-gray-700 text-lg hidden peer-checked:inline">🌙</span>
-                        </div>
-                    </label> */}
+                   
                     <StyledWrapper>
                         <label className="theme-switch">
                             <input type="checkbox" className="theme-switch__checkbox" checked={theme === "dark"}

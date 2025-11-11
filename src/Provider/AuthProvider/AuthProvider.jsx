@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     useEffect(()=>{
         const tracking = onAuthStateChanged(auth,(currentUser)=>{
             setUser(currentUser) ;
-            loading(false)
+            setLoading(false)
         })
         return ()=>{
             tracking() ;

@@ -5,6 +5,7 @@ import AllProperty from "../Pages/AllProperty/AllProperty";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
 import PropertyDetails from "../Components/PropertyDetails/PropertyDetails";
+import PrivateRoute from "../Provider/PrivateRoutes/PrivateRoute";
 
 export const router  = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ export const router  = createBrowserRouter([
             {path : '/allproperty',Component:AllProperty},
             {path : '/login' , Component:Login} ,
             {path : '/register' , Component : Register},
-            {path : '/details/:id' , Component : PropertyDetails}
+            {path : '/details/:id' , element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>}
         ]
     }
 ]) ;

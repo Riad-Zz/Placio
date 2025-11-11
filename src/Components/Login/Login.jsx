@@ -38,6 +38,8 @@ const Login = () => {
         GoogleLogin().then((result) => {
             const currentUser = result.user;
             setUser(currentUser)
+            navigate(location.state || '/');
+            toast.success(`Welcome ${currentUser.displayName}`, { theme: 'colored' })
             const newUser = {
                 name: currentUser.displayName,
                 email: currentUser.email,
@@ -50,7 +52,7 @@ const Login = () => {
                         //Will DO Something
                     }
                 })
-            navigate(location.state || '/');
+
         })
             .catch(error => {
                 const errorMessage = error.message;
@@ -71,7 +73,7 @@ const Login = () => {
         })
             .catch(error => {
                 const errorMessage = error.message;
-                toast.error(errorMessage , {theme:'colored'}) ;
+                toast.error(errorMessage, { theme: 'colored' });
             })
     }
 
