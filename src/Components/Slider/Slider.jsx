@@ -1,5 +1,5 @@
 // src/Components/Slider/Slider.jsx
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Typewriter from "typewriter-effect";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Thumbs, EffectFade, Autoplay } from "swiper/modules";
@@ -12,9 +12,12 @@ import { MdVilla } from "react-icons/md";
 import { HiOfficeBuilding } from "react-icons/hi";
 import { PiBuildingApartmentFill } from "react-icons/pi";
 import { GoArrowUpRight } from "react-icons/go";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import { Link } from "react-router";
 
 const Slider = () => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const {theme} = use(AuthContext)
 
     const mainImages = [
         "./slider-5.jpg",
@@ -29,6 +32,11 @@ const Slider = () => {
         "./slider-pagi3.jpg",
         "./slider-pagi4.jpg",
     ];
+
+    const buttonConfig =
+        theme === "dark"
+            ? "flex cursor-pointer text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-transparent hover:border-white hover:text-white text-white bg-[#1563DF]"
+            : "flex  cursor-pointer text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-transparent  hover:text-black  text-white bg-[#1563DF]";
 
     const words = ["Sanctuary", "Safe House"];
 
@@ -113,10 +121,12 @@ const Slider = () => {
                             <span>Apartment</span>
                         </div>
 
-                        
+
                     </div>
                     <div className="mt-4 flex justify-center xl:justify-start">
-                        <button className={`flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl transition-all hover:bg-[#1563DF] hover:text-white text-white bg-[#1563DF] cursor-pointer`}> Explore More <GoArrowUpRight className="text-xl"></GoArrowUpRight></button>
+                        <Link to={'/allproperty'}>
+                        <button className={`flex text-[16px] font-semibold items-center gap-2 px-5 py-3 border border-[#1563DF] rounded-3xl text-white bg-[#1563DF] cursor-pointer`}> Explore More <GoArrowUpRight className="text-xl"></GoArrowUpRight></button>
+                        </Link>
                     </div>
                 </div>
 

@@ -10,6 +10,7 @@ const googleProvider = new GoogleAuthProvider() ;
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading,setLoading] = useState(true) ;
+    const [recentProp,setRecentProp] = useState([]) ;
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
     //---------------------Apply theme on html root------------------------------
@@ -66,7 +67,9 @@ const AuthProvider = ({ children }) => {
         setLoading,
         emailPasswordReg,
         updateUserProfile,
-        loginWithEmail
+        loginWithEmail,
+        recentProp,
+        setRecentProp,
     }
     return (
         <div>

@@ -179,9 +179,9 @@ const Register = () => {
                         />
                         <p className='text-red-600 font-bold text-xs'>{error}</p>
                         {eye ? (
-                            <FaEyeSlash onClick={handleEyeClick} className='z-10 absolute right-4 bottom-11 text-xl text-gray-400 cursor-pointer' />
+                            <FaEyeSlash onClick={handleEyeClick} className='z-10 absolute right-4 bottom-8 text-xl text-gray-400 cursor-pointer' />
                         ) : (
-                            <FaEye onClick={handleEyeClick} className='z-10 absolute right-4 bottom-11 text-xl text-gray-400 cursor-pointer' />
+                            <FaEye onClick={handleEyeClick} className='z-10 absolute right-4 bottom-8 text-xl text-gray-400 cursor-pointer' />
                         )}
                     </div>
 
