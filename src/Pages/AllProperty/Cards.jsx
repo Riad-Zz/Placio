@@ -1,18 +1,15 @@
-import React, { use } from "react";
-import { FaBed, FaBath } from "react-icons/fa";
-import { LuRuler } from "react-icons/lu";
-import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import React, { use } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
 import { IoLocationOutline } from "react-icons/io5";
 import { LuBedDouble } from "react-icons/lu";
 import { LiaBathSolid } from "react-icons/lia";
 import { TfiRulerAlt2 } from "react-icons/tfi";
-import { Link } from "react-router";
+import { Link } from 'react-router';
 
-const PropertyCard = ({ data }) => {
+const Cards = ({ data }) => {
     const { theme } = use(AuthContext);
-
     // Base colors
-    const cardBg = theme === "dark" ? "bg-[#2A2A2A] text-white" : "bg-white text-gray-900";
+    const cardBg = theme === "dark" ? "bg-[#2A2A2A] text-white" : "bg-gray-50 text-gray-900";
     const labelBg = theme === "dark" ? "bg-blue-500 text-white" : "bg-blue-600 text-white";
     const typeLabelBg = theme === "dark" ? "bg-gray-700 text-white" : "bg-gray-900 text-white";
     const locationBg = theme === "dark" ? "bg-black/60 text-white" : "bg-black/40 text-white";
@@ -33,13 +30,13 @@ const PropertyCard = ({ data }) => {
                 {/* Labels */}
                 <div className="absolute top-3 left-3 flex gap-2">
 
-                    <span className={`text-xs px-5 py-2 rounded-full ${labelBg}`}>
-                        Featured
-                    </span>
-
                     <span className={`text-xs px-5 py-2 rounded-full ${typeLabelBg}`}>
+                        {data.category}
+                    </span>
+                    <span className={`text-xs px-5 py-2 rounded-full ${labelBg}`}>
                         {data.type === "Sell" ? "For Sale" : "For Rent"}
                     </span>
+
                 </div>
 
                 {/* Location */}
@@ -83,7 +80,7 @@ const PropertyCard = ({ data }) => {
 
                 <div className="flex justify-center my-4">
                     <Link to={`/details/${data._id}`}>
-                    <button className={` cursor-pointer px-6 py-2 border border-blue-600   rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-300 ${theme==="dark" ? 'text-white' :'text-black' }`}>
+                    <button className={` cursor-pointer px-6 py-2 border border-blue-600   rounded-lg hover:bg-blue-600 hover:text-white transition-colors duration-300 ${theme === "dark" ? 'text-white' : 'text-black'}`}>
                         View Details
                     </button>
                     </Link>
@@ -95,4 +92,4 @@ const PropertyCard = ({ data }) => {
     );
 };
 
-export default PropertyCard;
+export default Cards;

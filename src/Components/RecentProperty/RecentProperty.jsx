@@ -50,13 +50,13 @@ const RecentProperty = () => {
                     <Loader></Loader>
                     :
                     <>
-                        <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-6'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
                             {
                                 recentProp.map(data => <PropertyCard key={data._id} data={data}></PropertyCard>)
                             }
                         </div>
                         <Link to={'/allproperty'}>
-                        <div className="my-4 flex justify-center ">
+                        <div className="mt-10 mb-5 flex justify-center ">
                             <button className={`${buttonConfig}`}>View All Property <FaArrowRightLong className='text-xl'></FaArrowRightLong> </button>
                         </div>
                         </Link>

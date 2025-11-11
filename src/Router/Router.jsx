@@ -4,6 +4,7 @@ import Home from "../Pages/Home/Home";
 import AllProperty from "../Pages/AllProperty/AllProperty";
 import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
+import PropertyDetails from "../Components/PropertyDetails/PropertyDetails";
 
 export const router  = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ export const router  = createBrowserRouter([
             {path : '/allproperty',Component:AllProperty},
             {path : '/login' , Component:Login} ,
             {path : '/register' , Component : Register},
+            {path : '/details/:id' , Component : PropertyDetails}
         ]
     }
 ]) ;
