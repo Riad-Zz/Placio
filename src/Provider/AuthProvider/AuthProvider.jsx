@@ -47,6 +47,8 @@ const AuthProvider = ({ children }) => {
         setTheme,
         GoogleLogin,
         logout,
+        loading,
+        setLoading,
     }
     return (
         <div>

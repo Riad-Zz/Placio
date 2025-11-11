@@ -4,19 +4,52 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // import { useLocation, useNavigate } from 'react-router';
 import regModel from '../../assets/RegisterImage.png'
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import useAxios from '../../Hooks/Axios/useAxios';
 
 
 const Register = () => {
     const [eye, setEye] = useState(false);
-    const { theme } = use(AuthContext);
-    // const location = useLocation();
-    // const navigate = useNavigate();
+    const { theme, GoogleLogin, setUser, user } = use(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const axiosInstance = useAxios();
 
-     // ------------------- Onclick EyeControl ----------------
+
+    // ------------------- Onclick EyeControl ----------------
     const handleEyeClick = (e) => {
         e.preventDefault();
         setEye(!eye);
+    }
+
+    //----------------------Google Register--------------------------
+    const handleGoogleRegister = (e) => {
+        e.preventDefault();
+        GoogleLogin().then(result => {
+            const currentUser = result.user;
+            setUser(currentUser);
+
+            const newUser = {
+                name: currentUser.displayName,
+                email: currentUser.email,
+                image: currentUser.photoURL,
+            }
+
+            //-------------Save the user to Db---------------------
+            axiosInstance.post('/users', newUser)
+                .then(data => {
+                    if(data.data.insertedId){
+                        //Will do something ! 
+                    }
+                })
+
+            navigate(location.state || '/');
+        })
+            .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            })
+
     }
 
 
@@ -26,7 +59,7 @@ const Register = () => {
             {/*------------------------- Form Section--------------------------*/}
             <div className='w-full md:w-1/2 flex justify-center items-center'>
                 <form
-                    
+
                     className={`${theme === "dark" ? "bg-[#2A2A2A] text-white border-gray-700" : "bg-white text-gray-900 border-gray-200"} 
                 lg:py-20 rounded-xl shadow-lg border w-full max-w-md lg:max-w-2xl p-8 md:p-12 transition-colors duration-500`}
                 >
@@ -95,7 +128,7 @@ const Register = () => {
                     <p className='text-center font-semibold text-gray-500 dark:text-gray-400 mb-4'>OR</p>
 
                     {/*------------------------Google Login / Register------------------------------*/}
-                    <button
+                    <button onClick={handleGoogleRegister}
                         className={`btn w-full flex items-center justify-center gap-2 py-3 rounded-lg font-bold border transition
                     ${theme === "dark" ? "bg-gray-700 text-white border-gray-600 hover:bg-gray-600" : "bg-gray-100 text-black border-gray-200 hover:bg-gray-200"}`}
                     >
