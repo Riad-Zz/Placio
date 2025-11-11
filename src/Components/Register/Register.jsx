@@ -4,13 +4,15 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 // import { useLocation, useNavigate } from 'react-router';
 import regModel from '../../assets/RegisterImage.png'
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { data, Link, useLocation, useNavigate } from 'react-router';
 import useAxios from '../../Hooks/Axios/useAxios';
+import { toast } from 'react-toastify';
 
 
 const Register = () => {
     const [eye, setEye] = useState(false);
-    const { theme, GoogleLogin, setUser, user } = use(AuthContext);
+    const [error,seterror] = useState("") ;
+    const { theme, GoogleLogin, setUser, user, emailPasswordReg, updateUserProfile } = use(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
@@ -38,7 +40,7 @@ const Register = () => {
             //-------------Save the user to Db---------------------
             axiosInstance.post('/users', newUser)
                 .then(data => {
-                    if(data.data.insertedId){
+                    if (data.data.insertedId) {
                         //Will do something ! 
                     }
                 })
@@ -52,13 +54,80 @@ const Register = () => {
 
     }
 
+    //-------------------Email Password Register---------------------------
+    const handleEmailPasswordRegister = (e) => {
+        e.preventDefault();
+        const name = e.target.names.value;
+        const image = e.target.photo.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        // console.log(name,image,email,password) ;
+
+        //--------------Password Validation-----------------------
+        if (!/[A-Z]/.test(password)) {
+            // toast.warning("Password must contain at least one uppercase letter (A-Z).");
+            seterror('Password must contain at least one uppercase letter (A-Z).')
+            return;
+        }
+
+        if (!/[a-z]/.test(password)) {
+            // toast.warning("Password must contain at least one lowercase letter (a-z).");
+            seterror('Password must contain at least one lowercase letter (a-z).')
+            return;
+        }
+
+        if (password.length < 6) {
+            // toast.warning("Password must be at least 6 characters long.");
+            seterror('Password must be at least 6 characters long.')
+            return;
+        }
+
+        const newUser = {
+            name: name,
+            image: image,
+            email: email,
+            password: password,
+        }
+
+        emailPasswordReg(email, password).then(result => {
+            const currentUser = result.user;
+            navigate(location.state || '/');
+            toast.success(`Welcome Onboard ${name}`) ;
+
+            //---------------USer Save to DB--------------------------
+            axiosInstance.post('/users', newUser)
+                .then(data => {
+                    if (data.data.insertedId) {
+                        //May DO Something
+                    }
+                })
+                .catch(error => {
+                    toast.warning(error.message);
+                })
+
+            //---------------Updating User Name and Photo-----------------
+            updateUserProfile({ displayName: name, photoURL: image })
+                .then(() => {
+                    setUser({ ...currentUser, displayName: name, photoURL: image })
+                })
+                .catch(error => {
+                    const errorMessage = error.message;
+                    toast.error(errorMessage);
+                })
+        })
+            .catch(error => {
+                const errorMessage = error.message;
+                toast.error(errorMessage);
+            })
+    }
+
 
     return (
         <div className='min-h-[90vh] flex flex-col md:flex-row items-center justify-center p-1 md:px-14 py-10 bg-gray-100 dark:bg-[#1E1E1E] transition-colors duration-500'>
 
             {/*------------------------- Form Section--------------------------*/}
             <div className='w-full md:w-1/2 flex justify-center items-center'>
-                <form
+                <form onSubmit={handleEmailPasswordRegister}
 
                     className={`${theme === "dark" ? "bg-[#2A2A2A] text-white border-gray-700" : "bg-white text-gray-900 border-gray-200"} 
                 lg:py-20 rounded-xl shadow-lg border w-full max-w-md lg:max-w-2xl p-8 md:p-12 transition-colors duration-500`}
@@ -108,10 +177,11 @@ const Register = () => {
                             name='password'
                             required
                         />
+                        <p className='text-red-600 font-bold text-xs'>{error}</p>
                         {eye ? (
-                            <FaEyeSlash onClick={handleEyeClick} className='z-10 absolute right-4 bottom-7 text-xl text-gray-400 cursor-pointer' />
+                            <FaEyeSlash onClick={handleEyeClick} className='z-10 absolute right-4 bottom-11 text-xl text-gray-400 cursor-pointer' />
                         ) : (
-                            <FaEye onClick={handleEyeClick} className='z-10 absolute right-4 bottom-7 text-xl text-gray-400 cursor-pointer' />
+                            <FaEye onClick={handleEyeClick} className='z-10 absolute right-4 bottom-11 text-xl text-gray-400 cursor-pointer' />
                         )}
                     </div>
 
