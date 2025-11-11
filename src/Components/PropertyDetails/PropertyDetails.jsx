@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import React, { use } from 'react';
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import React, { use, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import useAxios from '../../Hooks/Axios/useAxios';
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline, IoStarOutline } from "react-icons/io5";
 import { LuBedDouble } from "react-icons/lu";
 import { LiaBathSolid } from "react-icons/lia";
 import { TfiRulerAlt2 } from "react-icons/tfi";
@@ -14,23 +14,59 @@ import { BiBath } from "react-icons/bi";
 import { PiResize } from "react-icons/pi";
 import { PiHammerLight } from "react-icons/pi";
 import { BiCategoryAlt } from "react-icons/bi";
+// import Rating from 'react-rating';
+
+import { IoIosStarOutline } from "react-icons/io";
+import { CiStar } from "react-icons/ci";
+import { Rating, Box, TextField, Button, Typography, Paper } from "@mui/material";
+import { toast } from 'react-toastify';
+
+
 
 
 const PropertyDetails = () => {
+    const queryClient = useQueryClient();
     const { id } = useParams();
     const axiosInstance = useAxios();
-    const { theme } = use(AuthContext);
-
+    const { theme, user } = use(AuthContext);
+    const ratingRef = useRef(null);
+    const [rating, setRating] = useState(0);
+    const [desc, setDesc] = useState("");
     const proId = id.slice(0, 4)
-
     const infoText = theme === "dark" ? "text-gray-300" : "text-gray-600";
 
+
+    //------------------Rating Posting------------------------
+    const ratingMutation = useMutation({
+        mutationFn: (newRating) =>
+            axiosInstance.post('/rating', newRating).then(res => res.data),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['rating' , user.email]);
+        }
+    });
+
+    //-------------------------get Property Details---------------------------
     const { data: product = {}, isLoading } = useQuery({
         queryKey: [id],
         queryFn: () => axiosInstance(`/property/${id}`).then(res => res.data),
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: true,
     });
+
+    //-------------------------Rating Control---------------------------------
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (ratingRef.current && !ratingRef.current.contains(event.target)) {
+                setRating(0);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+
 
     const {
         propertyName,
@@ -54,6 +90,32 @@ const PropertyDetails = () => {
     if (isLoading) {
         return <Loader></Loader>;
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const today = new Date().toISOString().split("T")[0];
+
+        const newRating = {
+            rating,
+            description: desc,
+            propertyImage: image,
+            productName: propertyName,
+            Reviewer: user.email,
+            ReviewDate: today,
+            ReviewerName: user.displayName,
+        };
+
+        //--------------------Calling the Mutation to post--------------------------
+        ratingMutation.mutate(newRating, {
+            onSuccess: (data) => {
+                if(data.insertedId){
+                    toast.success("Review Added Succesfully !" , {theme : 'colored'})
+                }
+                setRating(0);
+                setDesc("");
+            }
+        });
+    };
 
     return (
         <div
@@ -229,33 +291,123 @@ const PropertyDetails = () => {
 
 
                     {/* Seller Section  */}
-                    <div className="mt-10">
-                        <h2 className="text-xl font-semibold mb-4">Contact Seller</h2>
 
-                        <div
-                            className={`
+                    <div>
+
+                        <div className="mt-10">
+                            <h2 className="text-xl font-semibold mb-4">Contact Seller</h2>
+
+                            <div
+                                className={`
       flex items-center gap-4 p-5 rounded-2xl shadow-sm transition-colors duration-300
       ${theme === "dark"
-                                    ? "border border-gray-400 text-gray-200 "
-                                    : "bg-white-100 border border-gray-300 text-gray-900 shadow-white "
-                                }
+                                        ? "border border-gray-400 text-gray-200 "
+                                        : "bg-white-100 border border-gray-300 text-gray-900 shadow-white "
+                                    }
     `}
-                        >
-                            <img
-                                src={sellerImage}
-                                alt={sellerName}
-                                className="w-16 h-16 rounded-full object-cover border-2 border-gray-300"
-                            />
+                            >
+                                <img
+                                    src={sellerImage}
+                                    alt={sellerName}
+                                    className="w-16 h-16 rounded-full object-cover border-2 border-gray-300"
+                                />
 
-                            <div>
-                                <p className="text-lg font-semibold">{sellerName}</p>
-                                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{sellerEmail}</p>
-                                <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{sellerContact}</p>
+                                <div>
+                                    <p className="text-lg font-semibold">{sellerName}</p>
+                                    <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{sellerEmail}</p>
+                                    <p className={`${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{sellerContact}</p>
+                                </div>
                             </div>
                         </div>
+
+                        {/* Rating  */}
+                        <p className='mt-10 text-xl font-semibold py-5'>Submit Your Review</p>
+                        <Paper
+                            // subtle shadow like shadow-sm
+                            sx={{
+
+                                mx: "auto",
+                                py: 3,
+                                px: 3,
+                                borderRadius: "10px", // 2xl
+                                transition: "all 0.3s ease",
+                                border: theme === "dark" ? "1px solid #6B7280" : "1px solid #D1D5DB", // gray-400 / gray-300
+                                bgcolor: theme === "dark" ? "#2A2A2A" : "#FFFFFF",
+                                color: theme === "dark" ? "#E0E0E0" : "#1A1A1A",
+                            }}
+                        >
+                            <form
+                                onSubmit={handleSubmit}
+                                style={{ display: "flex", flexDirection: "column", gap: "24px" }}
+                            >
+
+                                {/* Rating */}
+                                <Box display="flex" alignItems="center" gap={2}>
+                                    <Typography sx={{ minWidth: 60 }}>Rating:</Typography>
+                                    <Rating
+                                        name="custom-rating"
+                                        value={rating}
+                                        onChange={(event, newValue) => setRating(newValue)}
+                                        precision={1}
+                                        required
+                                        size="large"
+                                        sx={{
+                                            color: "#FFA500", // gold stars
+                                        }}
+                                    />
+                                </Box>
+
+                                {/* Description */}
+                                <TextField
+                                    label="Description"
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
+                                    value={desc}
+                                    required
+                                    onChange={(e) => setDesc(e.target.value)}
+                                    sx={{
+                                        bgcolor: theme === "dark" ? "#3A3A3A" : "#F9F9F9",
+                                        color: theme === "dark" ? "#E0E0E0" : "#1A1A1A",
+                                        borderRadius: "1rem",
+                                        "& .MuiInputBase-root": {
+                                            color: theme === "dark" ? "#E0E0E0" : "#1A1A1A",
+                                        },
+                                        "& .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: theme === "dark" ? "#555" : "#CCC",
+                                        },
+                                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#1563DF",
+                                        },
+                                        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                            borderColor: "#1563DF",
+                                        },
+                                    }}
+                                />
+
+                                {/* Submit Button */}
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    sx={{
+                                        bgcolor: "#1563DF",
+                                        color: "#fff",
+                                        fontWeight: 600,
+                                        borderRadius: "1rem",
+                                        "&:hover": { bgcolor: "#1563DF" },
+                                    }}
+                                >
+                                    Submit
+                                </Button>
+                            </form>
+                        </Paper>
                     </div>
 
+
+
+
                 </div>
+
 
 
 
