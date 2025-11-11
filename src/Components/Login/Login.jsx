@@ -6,15 +6,16 @@ import { IoLogoGoogle } from "react-icons/io";
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
 import loginImage from '../../assets/loginImage.png'
 import useAxios from '../../Hooks/Axios/useAxios';
+import { toast } from 'react-toastify';
 
 
 
 const Login = () => {
 
-    const navigate = useNavigate() ;
-    const location = useLocation() ;
-    const axiosInstance = useAxios() ;
-    const { theme,user,setUser,GoogleLogin } = use(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const axiosInstance = useAxios();
+    const { theme, user, setUser, GoogleLogin, loginWithEmail } = use(AuthContext)
     const [eye, setEye] = useState(false);
     const [forget, setforget] = useState(false);
     const [currentEmail, setCurrentEmail] = useState("");
@@ -31,36 +32,53 @@ const Login = () => {
         setforget(!forget);
     }
 
-
-    const handleGoogleLogin = (e)=>{
-        e.preventDefault() ;
-        GoogleLogin().then((result)=>{
-            const currentUser = result.user ;
-            setUser(currentUser) 
+    //----------------------Google Login Method-----------------------
+    const handleGoogleLogin = (e) => {
+        e.preventDefault();
+        GoogleLogin().then((result) => {
+            const currentUser = result.user;
+            setUser(currentUser)
             const newUser = {
-                name : currentUser.displayName  ,
-                email : currentUser.email ,
-                image : currentUser.photoURL,
+                name: currentUser.displayName,
+                email: currentUser.email,
+                image: currentUser.photoURL,
             }
             //---------------------Post Using Axios--------------------------------
-            axiosInstance.post('/users',newUser)
-            .then(data => {
-               if( data.data.insertedId){
-                //Will DO Something
-               }
+            axiosInstance.post('/users', newUser)
+                .then(data => {
+                    if (data.data.insertedId) {
+                        //Will DO Something
+                    }
+                })
+            navigate(location.state || '/');
+        })
+            .catch(error => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
             })
-            navigate(location.state || '/') ;
+    }
+
+    //-----------------Email Password Login Method-----------------------------
+    const handleEmailLogin = (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        loginWithEmail(email, password).then((result) => {
+            const currentUser = result.user;
+            setUser(currentUser);
+            toast.success(`Welcome ${currentUser.displayName}`, { theme: 'colored' })
+            navigate(location.state || '/');
         })
-        .catch(error=>{
-             const errorMessage = error.message;
-             console.log(errorMessage) ;
-        })
+            .catch(error => {
+                const errorMessage = error.message;
+                toast.error(errorMessage , {theme:'colored'}) ;
+            })
     }
 
     return (
         <div className={`min-h-[90vh] ${theme === "dark" ? "" : "bg-gray-100"} flex flex-col md:flex-row items-center justify-center px-2 md:px-5 py-10`}>
 
-         {/* Form Section */}
+            {/* Form Section */}
 
             {
                 forget ?
@@ -121,7 +139,7 @@ const Login = () => {
 
 
                     <div className='w-full md:w-1/2 flex justify-center items-center'>
-                        <form
+                        <form onSubmit={handleEmailLogin}
                             className={`${theme === "dark" ? "bg-[#2A2A2A] text-white" : "bg-white text-gray-900"} 
       lg:py-20 rounded-xl shadow-lg border ${theme === "dark" ? "border-gray-700" : "border-gray-200"} w-full max-w-md lg:max-w-2xl p-8 md:p-12 transition-colors duration-500`}
                         >
@@ -224,7 +242,7 @@ const Login = () => {
 
             </div>
 
-           
+
 
         </div>
     );

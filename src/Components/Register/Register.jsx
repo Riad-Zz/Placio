@@ -92,7 +92,7 @@ const Register = () => {
         emailPasswordReg(email, password).then(result => {
             const currentUser = result.user;
             navigate(location.state || '/');
-            toast.success(`Welcome Onboard ${name}`) ;
+            toast.success(`Welcome Onboard ${name}` , {theme:'colored'}) ;
 
             //---------------USer Save to DB--------------------------
             axiosInstance.post('/users', newUser)
