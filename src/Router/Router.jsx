@@ -6,6 +6,7 @@ import Login from "../Components/Login/Login";
 import Register from "../Components/Register/Register";
 import PropertyDetails from "../Components/PropertyDetails/PropertyDetails";
 import PrivateRoute from "../Provider/PrivateRoutes/PrivateRoute";
+import MyRating from "../Pages/MyRating/MyRating";
 
 export const router  = createBrowserRouter([
     {
@@ -16,7 +17,8 @@ export const router  = createBrowserRouter([
             {path : '/allproperty',Component:AllProperty},
             {path : '/login' , Component:Login} ,
             {path : '/register' , Component : Register},
-            {path : '/details/:id' , element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>}
+            {path : '/details/:id' , element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>},
+            {path : '/myrating' , element : <PrivateRoute><MyRating></MyRating></PrivateRoute>}
         ]
     }
 ]) ;

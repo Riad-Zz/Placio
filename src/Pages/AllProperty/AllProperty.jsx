@@ -28,7 +28,7 @@ const AllProperty = () => {
     );
 
     return (
-        <div className='md:max-w-10/12 mx-auto mt-5'>
+        <div className='max-w-11/12 md:max-w-10/12 mx-auto mt-5'>
             <p className='text-center text-4xl text-[#1563DF] font-bold tracking-widest'>ALL PROPERTY</p>
             <p className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
                 Discover Placio's all Properties for Your Dream {' '}
@@ -64,7 +64,7 @@ const AllProperty = () => {
             {isLoading ? (
                 <Loader />
             ) : (
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10'>
+                <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10'>
                     {filteredProperties.length > 0 ? (
                         filteredProperties.map(data => <Cards key={data._id} data={data} />)
                     ) : (

@@ -98,6 +98,7 @@ const PropertyDetails = () => {
         const newRating = {
             rating,
             description: desc,
+            propertyId : id,
             propertyImage: image,
             productName: propertyName,
             Reviewer: user.email,
@@ -352,7 +353,7 @@ const PropertyDetails = () => {
                                         required
                                         size="large"
                                         sx={{
-                                            color: "#FFA500", // gold stars
+                                            color: "#FFA500",
                                         }}
                                     />
                                 </Box>
