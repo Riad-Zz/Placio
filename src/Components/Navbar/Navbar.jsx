@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { GrUserNew } from "react-icons/gr";
 import { LuUserRoundPlus } from "react-icons/lu";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 
 const StyledWrapper = styled.div`
@@ -220,6 +221,9 @@ const Navbar = ({ theme, setTheme }) => {
     //---------------------Handle Logout----------------------------------
     const handleLogout = () => {
         logout().then(() => {
+            toast.success("Logged Out Successfully!", {
+                theme: 'colored'
+            });
         })
             .catch(error => {
                 const errorMessage = error.message;
@@ -328,7 +332,7 @@ const Navbar = ({ theme, setTheme }) => {
 
                 {/*------------------------ Right: Theme toggle + Login/Registe-------------------------------r */}
                 <div className="flex items-center gap-3">
-                   
+
                     <StyledWrapper>
                         <label className="theme-switch">
                             <input type="checkbox" className="theme-switch__checkbox" checked={theme === "dark"}
@@ -368,11 +372,11 @@ const Navbar = ({ theme, setTheme }) => {
       ${theme === "dark" ? "bg-[#2A2A2A] text-white border border-gray-700" : "bg-white text-gray-900 border border-gray-200"} 
       w-52 space-y-2`}
                                     >
-                                        <Link to={''}>
-                                            <li className="font-semibold text-center truncate px-3 py-2 rounded-lg transition-all border-b border-gray-400/20">
-                                                {user.displayName || "User"}
-                                            </li>
-                                        </Link>
+
+                                        <li className="font-semibold text-center truncate px-3 py-2 rounded-lg transition-all border-b border-gray-400/20">
+                                            {user.displayName || "User"}
+                                        </li>
+
 
                                         <li
                                             className="text-sm text-center truncate px-3 py-2 text-gray-500 border-b border-gray-400/20"

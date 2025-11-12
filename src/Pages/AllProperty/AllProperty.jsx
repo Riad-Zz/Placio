@@ -31,7 +31,7 @@ const AllProperty = () => {
     // console.log(allProp)
 
     return (
-        <div className='max-w-11/12 md:max-w-10/12 mx-auto mt-5'>
+        <div className='max-w-11/12 md:max-w-10/12 mx-auto mt-5 mb-20'>
             <p className='text-center text-4xl text-[#1563DF] font-bold tracking-widest'>ALL PROPERTY</p>
             <div className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
                 Discover Placio's all Properties for Your Dream{' '}
