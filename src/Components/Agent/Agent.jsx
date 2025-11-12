@@ -10,14 +10,14 @@ import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
 const Agent = () => {
     const {theme} = use(AuthContext)
     return (
-        <div className='md:max-w-9/12  max-w-11/12 px-1 mb-10 mx-auto mt-20'>
+        <div className='md:max-w-9/12  max-w-11/12 px-1  mx-auto my-20'>
             <p className='text-center  text-[#1563DF] font-bold tracking-wider'>OUR TEAM</p>
             <p className='text-4xl font-semibold text-center my-2'>
                 Meet Our Agents
             </p>
             <div className='grid grid-cols-1 mt-5 gap-7 md:grid-cols-2 xl:grid-cols-4'>
                 <div className=''>
-                    <img src={agent1} alt="" className='rounded-xl' />
+                    <img src={agent1} alt="" className='rounded-xl transform transition-transform duration-500 hover:scale-102' />
                     <div className='flex  justify-between items-center'>
                         <div className='mt-2'>
                             <p className='text-2xl font-semibold'>Chris Patt</p>
@@ -35,7 +35,7 @@ const Agent = () => {
 
                 </div>
                 <div className=''>
-                    <img src={agent2} alt="" className=' rounded-xl' />
+                    <img src={agent2} alt="" className=' rounded-xl transform transition-transform duration-500 hover:scale-102' />
                     <div className='flex  justify-between items-center'>
                         <div className='mt-2'>
                             <p className='text-2xl font-semibold'>Ethan Williams</p>
@@ -54,7 +54,7 @@ const Agent = () => {
                 </div>
 
                 <div className=''>
-                    <img src={agent3} alt="" className=' rounded-xl' />
+                    <img src={agent3} alt="" className=' rounded-xl transform transition-transform duration-500 hover:scale-102' />
                     <div className='flex  justify-between items-center'>
                         <div className='mt-2'>
                             <p className='text-2xl font-semibold'>Michael Carter</p>
@@ -73,7 +73,7 @@ const Agent = () => {
                 </div>
 
                 <div className=''>
-                    <img src={agent4} alt="" className=' rounded-xl' />
+                    <img src={agent4} alt="" className=' rounded-xl transform transition-transform duration-500 hover:scale-102' />
                     <div className='flex  justify-between items-center'>
                         <div className='mt-2'>
                             <p className='text-2xl font-semibold'>Sofia Ramirez</p>

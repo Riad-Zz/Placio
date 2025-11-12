@@ -4,6 +4,7 @@ import Temp from '../../Components/Temp/Temp';
 import RecentProperty from '../../Components/RecentProperty/RecentProperty';
 import Agent from '../../Components/Agent/Agent';
 import Services from '../../Components/Services/Services';
+import ChooseUs from '../../Components/ChooseUs/ChooseUs';
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
             {/* <Temp></Temp> */}
             <RecentProperty></RecentProperty>
             <Services></Services>
+            <ChooseUs></ChooseUs>
             <Agent></Agent>
         </div>
     );
