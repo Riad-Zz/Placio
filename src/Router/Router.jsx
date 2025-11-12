@@ -15,13 +15,14 @@ export const router  = createBrowserRouter([
     {
         path : '/' ,
         Component : Roots,
+        errorElement: <ErrorPage></ErrorPage> ,
         children : [
             {index : true , Component : Home},
             {path : '/allproperty',Component:AllProperty},
             {path : '/login' , Component:Login} ,
             {path : '/register' , Component : Register},
             {path : '/details/:id' , element : <PrivateRoute><PropertyDetails></PropertyDetails></PrivateRoute>},
-            {path : '/myrating' , element : <PrivateRoute><MyRating></MyRating></PrivateRoute>},
+            {path : '/myrating',  element : <PrivateRoute><MyRating></MyRating></PrivateRoute>},
             {path : '/addproperty' , element : <PrivateRoute><AddProperty></AddProperty></PrivateRoute>},
             {path : '/myproperty' , element : <PrivateRoute><MyProperty></MyProperty></PrivateRoute>},
         ]
