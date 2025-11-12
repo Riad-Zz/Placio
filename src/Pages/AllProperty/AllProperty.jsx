@@ -17,7 +17,7 @@ const AllProperty = () => {
     //-------------All Property Data fetch---------------------
     const { data: allProp = [], isLoading, isError, isFetching } = useQuery({
         queryKey: ['allproduct'],
-        queryFn: () => axiosInstance.get('/property').then(res => res.data),
+        queryFn: () => axiosInstance.get('/allproperty').then(res => res.data),
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: true,
     });

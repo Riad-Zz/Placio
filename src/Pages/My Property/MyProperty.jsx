@@ -13,11 +13,12 @@ import { LiaBathSolid } from 'react-icons/lia';
 import { TfiRulerAlt2 } from 'react-icons/tfi';
 import NoProperty from './NoProperty';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
 
 const MyProperty = () => {
     const queryClient = useQueryClient();
     const { user, theme } = useContext(AuthContext);
-    const axiosInstance = useAxios();
+    const axiosInstance = useAxiosSecure();
     const modalRef = useRef(null);
     const [editProperty, setEditProperty] = useState(null);
 

@@ -5,10 +5,11 @@ import useAxios from "../../Hooks/Axios/useAxios";
 import Loader from "../../Components/Loader/Loader";
 import { Link, Navigate } from "react-router";
 import NoRating from "./NoRating";
+import useAxiosSecure from "../../Hooks/AxiosSecure/useAxiosSecure";
 
 const MyRating = () => {
     const { user, theme } = use(AuthContext);
-    const axiosInstance = useAxios();
+    const axiosInstance = useAxiosSecure();
 
     const { data: allratings = [], isLoading } = useQuery({
         queryKey: ["rating", user.email],
