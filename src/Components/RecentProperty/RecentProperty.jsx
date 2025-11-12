@@ -37,7 +37,7 @@ const RecentProperty = () => {
 
 
     return (
-        <div className='md:max-w-10/12 px-1 mx-auto mt-20'>
+        <div className='md:max-w-10/12 max-w-11/12 px-1 mx-auto mt-20'>
 
             <p className='text-center text-[#1563DF] font-bold tracking-wider'>RECENT PROPERTY</p>
             <p className='text-4xl font-semibold text-center my-2'>
@@ -50,7 +50,7 @@ const RecentProperty = () => {
                     <Loader></Loader>
                     :
                     <>
-                        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6'>
                             {
                                 recentProp.map(data => <PropertyCard key={data._id} data={data}></PropertyCard>)
                             }

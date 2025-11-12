@@ -54,7 +54,7 @@ const PropertyCard = ({ data }) => {
                     {data.propertyName}
                 </h2>
 
-                <div className={`flex items-center gap-4 text-sm mt-3 ${infoText}`}>
+                <div className={`flex flex-wrap items-center gap-4 text-sm mt-3 ${infoText}`}>
                     <div className="flex items-center gap-1">
                         <LuBedDouble></LuBedDouble> Beds : <span className="font-bold">{data.beds}</span>
                     </div>
