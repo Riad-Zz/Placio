@@ -14,6 +14,7 @@ import { TfiRulerAlt2 } from 'react-icons/tfi';
 import NoProperty from './NoProperty';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/AxiosSecure/useAxiosSecure';
+import { BsSignpostSplit } from "react-icons/bs";
 
 const MyProperty = () => {
     const queryClient = useQueryClient();
@@ -186,10 +187,16 @@ const handleDelete = (id) => {
                             <div className="w-full md:w-3/5 p-6 flex flex-col justify-between">
                                 <div>
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{p.propertyName}</h3>
-                                    <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 mb-4">
+                                    <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 mb-2">
                                         <IconLocation size={18} />
                                         <span className="text-sm">{p.location}</span>
                                     </div>
+                                    <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 mb-4">
+                                        <BsSignpostSplit size={18} />
+                                        <span className="text-sm">Posted On : {p.postedOn.split('T')[0]}</span>
+                                    </div>
+                                    
+                                    
 
                                     <div className="flex flex-wrap gap-6 text-gray-700 dark:text-gray-300 text-[15px] font-medium mb-5">
                                         <div className="flex items-center gap-1"><LuBedDouble size={18} /> Beds : {p.beds}</div>
@@ -319,6 +326,27 @@ const handleDelete = (id) => {
                                     className={`input input-bordered w-full outline-none focus:ring-2 focus:ring-[#1563DF] ${theme === "dark" ? "bg-[#2A2A2A] border-gray-700" : "bg-gray-50 border-gray-300"}`}
                                 />
                             </div>
+                            <div>
+                                <label className="block mb-2 text-sm font-medium">Name</label>
+                                <input
+                                    type="text"
+                                    name="Name"
+                                    defaultValue={editProperty?.sellerName || ""}
+                                    readOnly
+                                    className={`input input-bordered w-full outline-none focus:ring-2 focus:ring-[#1563DF] ${theme === "dark" ? "bg-[#2A2A2A] border-gray-700" : "bg-gray-50 border-gray-300"}`}
+                                />
+                            </div>
+                            <div>
+                                <label className="block mb-2 text-sm font-medium">Email</label>
+                                <input
+                                    type="email"
+                                    name="Email"
+                                    defaultValue={user?.email || ""}
+                                    readOnly
+                                    className={`input input-bordered w-full outline-none focus:ring-2 focus:ring-[#1563DF] ${theme === "dark" ? "bg-[#2A2A2A] border-gray-700" : "bg-gray-50 border-gray-300"}`}
+                                />
+                            </div>
+                            
 
                             <div>
                                 <label className="block mb-2 text-sm font-medium">Type</label>

@@ -14,6 +14,7 @@ import { BiBath } from "react-icons/bi";
 import { PiResize } from "react-icons/pi";
 import { PiHammerLight } from "react-icons/pi";
 import { BiCategoryAlt } from "react-icons/bi";
+import { BsSignpostSplit } from "react-icons/bs";
 // import Rating from 'react-rating';
 
 import { IoIosStarOutline } from "react-icons/io";
@@ -84,6 +85,7 @@ const PropertyDetails = () => {
         sqft,
         description,
         buildYear,
+        postedOn,
 
     } = product;
 
@@ -284,6 +286,18 @@ const PropertyDetails = () => {
                                 <div>
                                     <p className="text-gray-500 text-sm">Category</p>
                                     <p className="font-semibold text-base">{category}</p>
+                                </div>
+                            </div>
+
+                            {/* ITEM 8 */}
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 border border-gray-300 rounded-lg flex items-center justify-center
+        transition hover:border-[#1563DF] hover:bg-[#1563DF] hover:text-white cursor-pointer">
+                                    <BsSignpostSplit className="w-6 h-6" />
+                                </div>
+                                <div>
+                                    <p className="text-gray-500 text-sm">Posted On</p>
+                                    <p className="font-semibold text-base">{postedOn.split('T')[0]}</p>
                                 </div>
                             </div>
 
