@@ -30,7 +30,7 @@ const MyRating = () => {
                 allratings.length == 0
                 && <NoRating></NoRating>
             }
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+            <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-4 gap-6 mt-10">
 
 
                 {allratings.length > 0 &&
@@ -38,7 +38,7 @@ const MyRating = () => {
                         <Link key={data.propertyId} to={`/details/${data.propertyId}`}>
                             <div
 
-                                className={`flex flex-col cursor-pointer md:flex-row gap-4 p-5 md:items-center rounded-2xl shadow-sm transition-colors duration-300
+                                className={`flex flex-wrap flex-col cursor-pointer md:flex-row gap-4 p-5 md:items-center rounded-2xl shadow-sm transition-colors duration-300
               ${theme === "dark"
                                         ? "bg-[#2A2A2A] border border-gray-700 text-gray-200"
                                         : "bg-white border border-gray-200 text-gray-900"
@@ -55,7 +55,7 @@ const MyRating = () => {
 
                                 <div className="flex-1 flex flex-col gap-1">
 
-                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+                                    <div className="flex flex-col  gap-1">
                                         <h3 className="font-semibold text-lg">{data.productName}</h3>
                                         <div className="flex items-center gap-1">
                                             {Array.from({ length: 5 }).map((_, i) => (
