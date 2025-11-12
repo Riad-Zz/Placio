@@ -14,14 +14,13 @@ const Footer = () => {
                     : "bg-[#111111] border-gray-800 text-gray-300"
                 }`}
         >
-            <div className="max-w-10/12 items-center mx-auto  py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="max-w-11/12 items-center mx-auto  py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
                 {/* Logo Placeholder */}
                 <div>
-                    <div className="flex items-center gap-2 justify-start">
+                    <div className="flex flex-col xl:flex-row md:items-center gap-2 justify-start">
 
                             <img src="/logo2.png" alt="" className="w-20 h-20" />
-                            <p
-                        className={`text-sm mt-4 leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-400"
+                            <p className={`text-sm mt-4 leading-relaxed ${theme === "dark" ? "text-gray-400" : "text-gray-400"
                             }`}
                     >
                         We provide instant property listing and management service across
@@ -107,7 +106,7 @@ const Footer = () => {
                     >
                         Follow Us
                     </h2>
-                    <div className="flex gap-4 text-lg">
+                    <div className="flex flex-wrap gap-4 text-lg">
                         {[FaFacebookF, FaXTwitter, FaInstagram, FaLinkedinIn].map(
                             (Icon, i) => (
                                 <a
