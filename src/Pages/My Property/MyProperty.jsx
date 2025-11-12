@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import useAxios from '../../Hooks/Axios/useAxios';
 import { AuthContext } from '../../Provider/AuthProvider/AuthProvider';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Loader from '../../Components/Loader/Loader';
 import { Link } from 'react-router';
 import { toast } from 'react-toastify';
@@ -13,18 +13,60 @@ import { LuBedDouble } from 'react-icons/lu';
 import { LiaBathSolid } from 'react-icons/lia';
 import { TfiRulerAlt2 } from 'react-icons/tfi';
 import NoProperty from './NoProperty';
+import Swal from 'sweetalert2';
 
 const MyProperty = () => {
+    const queryClient = useQueryClient()
     const { user, theme } = useContext(AuthContext);
     const axiosInstance = useAxios();
     // const queryClient = useQueryClient();
+
+
 
     const { data: myproperty = [], isLoading } = useQuery({
         queryKey: ['myproperty', user.email],
         queryFn: () => axiosInstance(`/property?sellerEmail=${user.email}`).then((res) => res.data),
     });
 
+    const deleteProperty = useMutation({
+        mutationFn: (id) => axiosInstance.delete(`/property/${id}`).then(res => res.data),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['myproperty', user.email])
+        }
+    })
+
+    // console.log(myproperty);
+
     if (isLoading) return <Loader />;
+
+
+    const handleDelete = (id) => {
+        console.log(id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteProperty.mutate(id, {
+                    onSuccess: (data) => {
+                        if (data.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    }
+                })
+
+            }
+        });
+    }
 
 
 
@@ -86,15 +128,15 @@ const MyProperty = () => {
                                         </Link>
 
                                         <Link
-                                            
+
                                             className="flex-1 md:flex-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gray-200 text-gray-800 font-medium hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 transition duration-200 text-sm"
                                         >
                                             <IconEdit /> Edit
                                         </Link>
 
-                                        <button
-                                            
-                                            className="flex-1 md:flex-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-700 font-medium hover:bg-red-200 dark:bg-red-900/40 dark:text-red-400 dark:hover:bg-red-900/60 transition duration-200 text-sm"
+                                        <button onClick={() => handleDelete(p._id)}
+
+                                            className="flex-1 md:flex-auto cursor-pointer flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-red-100 text-red-700 font-medium hover:bg-red-200 dark:bg-red-900/40 dark:text-red-400 dark:hover:bg-red-900/60 transition duration-200 text-sm"
                                         >
                                             <IconTrash /> Delete
                                         </button>
