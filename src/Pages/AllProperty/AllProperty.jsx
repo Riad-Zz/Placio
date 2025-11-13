@@ -72,7 +72,7 @@ const AllProperty = () => {
                     {filteredProperties.length > 0 ? (
                         filteredProperties.map(data => <Cards key={data._id} data={data} />)
                     ) : (
-                        <p className={`col-span-full text-center mt-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
+                        <p className={`min-h-screen col-span-full text-center mt-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
                             No properties found.
                         </p>
                     )}
