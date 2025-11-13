@@ -141,4 +141,6 @@ PORT=5000
 
 Repository: [https://github.com/Riad-Zz/Placio](https://github.com/Riad-Zz/Placio)
 
-Backend Repository: [https://github.com/Riad-Zz/Placio_Server](https://github.com/Riad-Zz/Placio_Server)
+Backend Repository: [https://github.com/Riad-Zz/Placio_Server](https://github.com/Riad-Zz/Placio_Server) 
+
+Live Link :[https://projectplacio.netlify.app/](https://projectplacio.netlify.app/)
