@@ -21,7 +21,7 @@ const MyRating = () => {
     if (isLoading) return <Loader />;
 
     return (
-        <div className="max-w-11/12 md:max-w-10/12 mx-auto mt-10 mb-20">
+        <div className="max-w-11/12 md:max-w-10/12 mx-auto mt-10 mb-20 min-h-screen">
             <p className="text-center text-3xl text-[#1563DF] font-bold tracking-wider">My Ratings & Reviews</p>
             <p className={`text-center mt-2 tracking-wide font-semibold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
                 Keep track of the properties you’ve rated and see all your feedback in one place.

@@ -369,32 +369,34 @@ const Navbar = ({ theme, setTheme }) => {
                                     <ul
                                         tabIndex={0}
                                         className={`mt-3 p-2 shadow-lg menu menu-compact dropdown-content rounded-xl transition-all duration-300
-      ${theme === "dark" ? "bg-[#2A2A2A] text-white border border-gray-700" : "bg-white text-gray-900 border border-gray-200"} 
-      w-52 space-y-2`}
+  ${theme === "dark" ? "bg-[#2A2A2A] text-white border border-gray-700" : "bg-white text-gray-900 border border-gray-200"} 
+  w-52 space-y-2`}
                                     >
-
-                                        <li className="font-semibold text-center truncate px-3 py-2 rounded-lg transition-all border-b border-gray-400/20">
+                                        <li
+                                            className="font-semibold text-center px-3 py-2 rounded-lg transition-all border-b border-gray-400/20 wrap-break-word"
+                                        >
                                             {user.displayName || "User"}
                                         </li>
 
-
                                         <li
-                                            className="text-sm text-center truncate px-3 py-2 text-gray-500 border-b border-gray-400/20"
+                                            className="text-sm text-center px-3 py-2 text-gray-500 border-b border-gray-400/20  wrap-break-word"
                                             title={user.email}
                                         >
                                             {user.email}
                                         </li>
 
-                                        <li className="flex  mt-2">
+                                        <li className="flex mt-2">
                                             <button
                                                 onClick={handleLogout}
                                                 className={`px-8 py-2 text-center flex justify-center rounded-lg font-semibold transition-colors
-          ${theme === "dark" ? "bg-primary hover:bg-primary/90 text-white" : "bg-primary text-white hover:bg-primary/90"}`}
+      ${theme === "dark" ? "bg-primary hover:bg-primary/90 text-white" : "bg-primary text-white hover:bg-primary/90"}`}
                                             >
                                                 Logout
                                             </button>
                                         </li>
                                     </ul>
+
+
                                 </div>
 
                             )
