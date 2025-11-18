@@ -131,6 +131,60 @@ PORT=5000
 
 ---
 
+
+## **Dependencies**
+
+### **Frontend & UI**
+
+```json
+{
+  "@emotion/react": "^11.14.0",
+  "@emotion/styled": "^11.14.1",
+  "@fontsource/roboto": "^5.2.8",
+  "@mui/icons-material": "^7.3.5",
+  "@mui/material": "^7.3.5",
+  "@smastrom/react-rating": "^1.5.0",
+  "@tailwindcss/vite": "^4.1.17",
+  "@tanstack/react-query": "^5.90.7",
+  "axios": "^1.13.2",
+  "firebase": "^12.5.0",
+  "react": "^19.1.1",
+  "react-dom": "^19.1.1",
+  "react-icons": "^5.5.0",
+  "react-loader-spinner": "^8.0.0",
+  "react-rater": "^6.0.5",
+  "react-rating": "^2.0.5",
+  "react-router": "^7.9.5",
+  "react-spinners": "^0.17.0",
+  "react-toastify": "^11.0.5",
+  "styled-components": "^6.1.19",
+  "sweetalert2": "^11.26.3",
+  "swiper": "^12.0.3",
+  "tailwindcss": "^4.1.17",
+  "typewriter-effect": "^2.22.0"
+}
+```
+
+### **Dev Dependencies**
+
+```json
+{
+  "@eslint/js": "^9.36.0",
+  "@types/react": "^19.1.16",
+  "@types/react-dom": "^19.1.9",
+  "@vitejs/plugin-react": "^5.0.4",
+  "daisyui": "^5.4.7",
+  "eslint": "^9.36.0",
+  "eslint-plugin-react-hooks": "^5.2.0",
+  "eslint-plugin-react-refresh": "^0.4.22",
+  "globals": "^16.4.0",
+  "vite": "^7.1.7"
+}
+```
+
+---
+
+
 ## **Future Enhancements**
 
 * Integrated chat between buyers and sellers
