@@ -20,7 +20,7 @@ It functions as a lightweight Zillow/OLX-style platform — with integrated rati
 | Authentication  | Firebase Auth                                             |   |
 | API             | RESTful Architecture, Axios                               |   |
 | Version Control | Git, GitHub                                               |   |
-| Alerts / UI     | SweetAlert2, react-toastify (no official icons available) |   |
+| Alerts / UI     | SweetAlert2, react-toastify  |   |
 
 ---
 
