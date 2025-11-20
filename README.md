@@ -87,7 +87,6 @@ cd Placio
 ### 2. Client Setup
 
 ```bash
-cd client
 npm install
 npm run dev
 ```
@@ -108,7 +107,6 @@ VITE_appId=
 ### 3. Server Setup
 
 ```bash
-cd server
 npm install
 nodemon index.js
 ```
